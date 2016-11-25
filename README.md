@@ -28,7 +28,6 @@ them are as follows:
     # Create users
     openldap_enable_user_creation: true
     openldap_server_users:
-      staff:
         william:
           password: 26April1564
           fullname: William Shakespeare
@@ -44,6 +43,10 @@ them are as follows:
           surname: Keats
           email: john@example.com
           shell: /usr/bin/bash
+    openldap_server_groups:
+      staff:
+        - william
+        - john
 
 ```
 

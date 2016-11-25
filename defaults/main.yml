@@ -19,7 +19,6 @@ openldap_server_enable_ipc: true
 # Create group and users
 openldap_enable_user_creation: false
 openldap_server_users:
-  staff:
     william:
       password: 26April1564
       fullname: William Shakespeare
@@ -35,3 +34,7 @@ openldap_server_users:
       surname: Keats
       email: john@example.com
       shell: /usr/bin/bash
+openldap_server_groups:
+  staff:
+    - william
+    - john

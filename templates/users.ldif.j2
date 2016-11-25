@@ -1,16 +1,18 @@
 {% set ldap_domain = 'dc={},dc={}'.format(openldap_server_domain_name.split('.')[0],openldap_server_domain_name.split('.')[1]) %}
-{% if openldap_server_users %}
-{%- for group, users in openldap_server_users.items() -%}
-{% set guid_loop = loop %}
+{% if openldap_server_groups %}
+{% for group, users in openldap_server_groups.items() -%}
 dn: cn={{ group }},ou=Group,{{ ldap_domain }}
 objectClass: posixGroup
 cn: {{ group }}
-gidNumber: {{ 10000 + guid_loop.index }}
-{% for user in users.keys() %}
+gidNumber: {{ 50000 + loop.index }}
+{% for user in users %}
 memberUid: {{ user }}
 {% endfor %}
+{% endfor %}
+{% endif %}
 
-{% for user, config in users.items() %}
+{% if openldap_server_users %}
+{% for user, config in openldap_server_users.items() %}
 dn: uid={{ user }},ou=Users,{{ ldap_domain }}
 {% if 'fullname' in config %}
 cn: {{ config['fullname'] }}
@@ -28,13 +30,12 @@ homeDirectory: {{ config.get('home', '/home/{}'.format(user)) }}
 {% if 'phone' in config %}
 telephoneNumber: {{ config['phone'] }}
 {% endif %}
-uidNumber: {{ 10000 + loop.index + guid_loop.index * 100 }}
-gidNumber: {{ 10000 + guid_loop.index }}
+uidNumber: {{ 10000 + loop.index }}
+gidNumber: {{ 10000 + loop.index }}
 objectClass: inetOrgPerson
 objectClass: posixAccount
 objectClass: shadowAccount
 
 {% endfor %}
 
-{% endfor %}
 {% endif %}
