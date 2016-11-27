@@ -25,6 +25,8 @@ them are as follows:
     openldap_serverlocation: Portland
     openldap_serverorganization: IT
 
+    openldap_server_hashing: SSHA # The used password hashing method
+
     # Create users
     openldap_enable_user_creation: true
     openldap_server_users:
