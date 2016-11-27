@@ -38,3 +38,28 @@ openldap_server_groups:
   staff:
     - william
     - john
+openldap_server_acl:
+  - what: "attrs=userPassword"
+    directives:
+      - by: self
+        permission: write
+      - by: anonymous
+        permission: auth
+      - by: dn.base="cn=Manager,dc={{ openldap_server_domain_name.split('.')[0] }},dc={{ openldap_server_domain_name.split('.')[1] }}"
+        permission: write
+      - by: "*"
+        permission: read
+  - what: "attrs=shadowLastChange"
+    directives:
+      - by: self
+        permission: write
+      - by: "*"
+        permission: read
+  - what: "*"
+    directives:
+      - by: self
+        permission: write
+      - by: dn.base="cn=Manager,dc={{ openldap_server_domain_name.split('.')[0] }},dc={{ openldap_server_domain_name.split('.')[1] }}"
+        permission: write
+      - by: "*"
+        permission: read

@@ -1,0 +1,8 @@
+{% if openldap_server_acl %}
+{% for value in openldap_server_acl %}
+access to {{ value['what'] }}
+{% for directive in value['directives'] %}
+    by {{ directive['by'] }} {{ directive['permission'] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
