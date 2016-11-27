@@ -47,31 +47,31 @@ them are as follows:
       staff:
         - william
         - john
-        openldap_server_acl:
-          - what: "attrs=userPassword"
-            directives:
-              - by: self
-                permission: write
-              - by: anonymous
-                permission: auth
-              - by: dn.base="cn=Manager,dc=example,dc=com"
-                permission: write
-              - by: "*"
-                permission: read
-          - what: "attrs=shadowLastChange"
-            directives:
-              - by: self
-                permission: write
-              - by: "*"
-                permission: read
-          - what: "*"
-            directives:
-              - by: self
-                permission: write
-              - by: n.base="cn=Manager,dc=example,dc=com"
-                permission: write
-              - by: "*"
-                permission: read
+    openldap_server_acl:
+      - what: "attrs=userPassword"
+        directives:
+          - by: self
+            permission: write
+          - by: anonymous
+            permission: auth
+          - by: dn.base="cn=Manager,dc=example,dc=com"
+            permission: write
+          - by: "*"
+            permission: read
+      - what: "attrs=shadowLastChange"
+        directives:
+          - by: self
+            permission: write
+          - by: "*"
+            permission: read
+      - what: "*"
+        directives:
+          - by: self
+            permission: write
+          - by: n.base="cn=Manager,dc=example,dc=com"
+            permission: write
+          - by: "*"
+            permission: read
 
 ```
 
