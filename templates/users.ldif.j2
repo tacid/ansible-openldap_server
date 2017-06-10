@@ -2,40 +2,20 @@
 {% if openldap_server_groups %}
 {% for group, users in openldap_server_groups.items() -%}
 dn: cn={{ group }},ou=Group,{{ ldap_domain }}
-objectClass: posixGroup
+objectClass: groupOfNames
 cn: {{ group }}
-gidNumber: {{ 50000 + loop.index }}
 {% for user in users %}
-memberUid: {{ user }}
+member: {{ user }}
 {% endfor %}
 {% endfor %}
 {% endif %}
 
 {% if openldap_server_users %}
 {% for user, config in openldap_server_users.items() %}
-dn: uid={{ user }},ou=Users,{{ ldap_domain }}
-{% if 'fullname' in config %}
-cn: {{ config['fullname'] }}
-{% endif %}
-{% if 'givenname' in config %}
-givenName: {{ config['givenname'] }}
-{% endif %}
-{% if 'surname' in config %}
-sn: {{ config['surname'] }}
-{% endif %}
-userPassword: {{ config['password'] }}
-mail: {{ config['email'] }}
-loginShell: {{ config.get('shell', '/bin/bash') }}
-homeDirectory: {{ config.get('home', '/home/{}'.format(user)) }}
-{% if 'phone' in config %}
-telephoneNumber: {{ config['phone'] }}
-{% endif %}
-uidNumber: {{ 10000 + loop.index }}
-gidNumber: {{ 10000 + loop.index }}
+dn: cn={{ user }},ou=Users,{{ ldap_domain }}
 objectClass: inetOrgPerson
-objectClass: posixAccount
-objectClass: shadowAccount
-
+cn: {{ user }}
+sn: {{ user }}
+userPassword: {{ config['password'] }}
 {% endfor %}
-
 {% endif %}
