@@ -8,10 +8,12 @@
 
 - name: Generate the private key for certificate request
   shell: openssl genrsa -des3 -passout pass:password -out my1.key 1024 chdir={{ openldap_server_app_path }}/certs/
+  no_log: true
          creates={{ openldap_server_app_path }}/certs/my1.key
 
 - name: Strip the passphrase from the key
   shell: openssl rsa -in my1.key -passin pass:password -out my.key chdir={{ openldap_server_app_path }}/certs/
+  no_log: true
          creates={{ openldap_server_app_path }}/certs/my.key
 
 - name: Create and sign the the new certificate

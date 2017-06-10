@@ -5,7 +5,7 @@ dn: cn={{ group }},ou=Group,{{ ldap_domain }}
 objectClass: groupOfNames
 cn: {{ group }}
 {% for user in users %}
-member: {{ user }}
+member: cn={{ user }},ou=Users,{{ ldap_domain }}
 {% endfor %}
 {% endfor %}
 {% endif %}
