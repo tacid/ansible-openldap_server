@@ -1,4 +1,4 @@
-{% set ldap_domain = 'dc={},dc={}'.format(openldap_server_domain_name.split('.')[0],openldap_server_domain_name.split('.')[1]) %}
+{% set ldap_domain = openldap_server_basedn %}
 {% if openldap_server_groups %}
 {% for group, users in openldap_server_groups.items() -%}
 dn: cn={{ group }},ou=Group,{{ ldap_domain }}

@@ -1,4 +1,4 @@
-{% set ldap_domain = 'dc={},dc={}'.format(openldap_server_domain_name.split('.')[0],openldap_server_domain_name.split('.')[1]) %}
+{% set ldap_domain = openldap_server_basedn %}
 dn: {{ ldap_domain }}
 objectClass: domain
 dc: {{ openldap_server_domain_name.split('.')[0] }}

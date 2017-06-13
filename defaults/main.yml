@@ -2,9 +2,11 @@
 
 #The domain prefix for ldap
 openldap_server_domain_name: example.com
+openldap_server_basedn: "dc={{ ',dc='.join(openldap_server_domain_name.split('.')) }}"
 
 #This is the password for admin for openldap
 openldap_server_rootpw: passme
+openldap_server_rootdn: "cn=Manager,{{ openldap_server_basedn }}"
 openldap_server_hashing: SSHA
 
 #The self signed ssl parameters
@@ -46,7 +48,7 @@ openldap_server_acl:
         permission: write
       - by: anonymous
         permission: auth
-      - by: dn.base="cn=Manager,dc={{ openldap_server_domain_name.split('.')[0] }},dc={{ openldap_server_domain_name.split('.')[1] }}"
+      - by: dn.base="{{ openldap_server_rootdn }}"
         permission: write
       - by: "*"
         permission: read
@@ -60,7 +62,7 @@ openldap_server_acl:
     directives:
       - by: self
         permission: write
-      - by: dn.base="cn=Manager,dc={{ openldap_server_domain_name.split('.')[0] }},dc={{ openldap_server_domain_name.split('.')[1] }}"
+      - by: dn.base="{{ openldap_server_rootdn }}"
         permission: write
       - by: "*"
         permission: read
