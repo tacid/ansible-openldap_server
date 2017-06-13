@@ -36,7 +36,7 @@
    - restart slapd
 
 - name: start the slapd service
-  service: name=slapd state=restarted enabled=yes
+  service: name=slapd state=started enabled=yes
 
 - name: Copy the template for creating base dn
   template: src=domain.ldif.j2 dest={{ openldap_server_app_path }}/domain.ldif
