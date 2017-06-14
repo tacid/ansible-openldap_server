@@ -42,6 +42,9 @@
   template: src=domain.ldif.j2 dest={{ openldap_server_app_path }}/domain.ldif
   register: domain_copy
 
+- name: we should restart slapd before adding creating new domain
+  meta: flush_handlers
+
 - name: add the base domain
   when: domain_copy.changed
   register: command_result
