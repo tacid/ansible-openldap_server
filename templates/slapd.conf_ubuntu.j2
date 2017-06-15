@@ -10,9 +10,9 @@ argsfile        /var/run/slapd/slapd.args
 loglevel        none
 
 modulepath      /usr/lib/ldap
-moduleload      back_bdb.la
+moduleload      back_mdb.la
 
-database        bdb
+database        mdb
 suffix          "{{ openldap_server_basedn }}"
 rootdn          "{{ openldap_server_rootdn }}"
 rootpw          {{ root_password.stdout }}
